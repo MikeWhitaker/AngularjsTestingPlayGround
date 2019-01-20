@@ -10,13 +10,11 @@
  * Factory in the angularJsUnitTestingApp.
  */
 angular.module('angularJsUnitTestingApp')
-  .factory('randomApi', randomApiFactory);
+  .service('randomApi', randomApiFactory);
   
   
   function randomApiFactory() {
     // Service logic
-    // ...
-
     var serviceData = {
       title: "example glossary",
       GlossDiv: {
@@ -42,7 +40,7 @@ angular.module('angularJsUnitTestingApp')
     // Public API here
     return {
       getData: function () {
-        return serviceData;
+        return serviceData.GlossDiv.GlossList.GlossEntry.GlossTerm;
       }
     };
   }

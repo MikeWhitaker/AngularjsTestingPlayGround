@@ -1,3 +1,4 @@
+"use strict";
 describe("ombd service", function() {
   var serviceData = {
     glossary: {
