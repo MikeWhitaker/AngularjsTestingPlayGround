@@ -12,6 +12,7 @@
 angular.module('angularJsUnitTestingApp')
   .service('randomApi', randomApiFactory);
   
+  randomApiFactory.$inject = [];
   
   function randomApiFactory() {
     // Service logic
@@ -41,7 +42,11 @@ angular.module('angularJsUnitTestingApp')
     return {
       getData: function () {
         return serviceData.GlossDiv.GlossList.GlossEntry.GlossTerm;
+      },
+      getTitle: function(){
+        return serviceData.title
       }
+
     };
   }
 }());

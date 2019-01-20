@@ -1,22 +1,22 @@
 "use strict";
 
-describe("Service: randomApi", function() {
+fdescribe("Service: randomApi", function() {
   // load the service's module
+  var randomApi = {};
   beforeEach(module("angularJsUnitTestingApp"));
-
+  beforeEach(inject(function(_randomApi_){
+    randomApi = _randomApi_;
+  }));
   // instantiate service
   
-  
-  fit("should return some data", function() {
-    var randomApi = {};
-    angular.mock.module('angularJsUnitTestingApp');
-
-    angular.mock.inject(function(_randomApi_){
-      randomApi = _randomApi_;
-    });
-
+  it("should return some data", function() {
     expect(randomApi.getData("something")).toEqual(
       "Standard Generalized Markup Language"
     );
   });
+
+  it('should re turn the title', function() {
+    expect(randomApi.getTitle()).toEqual("example glossary");
+  });
+
 });
