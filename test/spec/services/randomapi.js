@@ -22,23 +22,29 @@ describe("Service: randomApi", function() {
       }
     }
   };
-
   // load the service's module
   beforeEach(module("angularJsUnitTestingApp"));
 
   // instantiate service
   var randomApi;
-  beforeEach(inject(function(_randomApi_) {
-    randomApi = _randomApi_;
-  }));
+  
 
-  it("should return some data", function() {
-    var service = {
-      getData: function() {
-        return serviceData.GlossDiv.GlossList.GlossEntry.GlossTerm;
-      }
-    };
-    expect(service.getData("something")).toEqual(
+  fit("should return some data", function() {
+    angular.mock.module(function($provide){
+      $provide.factory('randomApi', function(){
+          return {
+            getData: function(query){
+              return serviceData.GlossDiv.GlossList.GlossEntry.GlossTerm;
+            }
+          }
+      });
+    });
+
+    angular.mock.inject(function(_randomApi_){
+      randomApi = _randomApi_;
+    });
+
+    expect(randomApi.getData("something")).toEqual(
       "Standard Generalized Markup Language"
     );
   });
