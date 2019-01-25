@@ -10,12 +10,14 @@
  * Factory in the angularJsUnitTestingApp.
  */
 angular.module('angularJsUnitTestingApp')
-  .service('randomApi', randomApiFactory);
+  .factory('randomApi', randomApiFactory);
   
-  randomApiFactory.$inject = [];
+  randomApiFactory.$inject = ['$http', '$q'];
   
-  function randomApiFactory() {
+  function randomApiFactory($http, $q) {
     // Service logic
+    var service= {};
+
     var serviceData = {
       title: "example glossary",
       GlossDiv: {
@@ -37,16 +39,21 @@ angular.module('angularJsUnitTestingApp')
         }
       }
     };
+    
+    angular.mock.dump($http);
+
+    var baseUrl = 'http://www.omdb.com/?v=1&'
+
+    service.search = function(query){
+      var deferred = $q.defer();
+      $http.get(baseUrl + 's='+ encodeURIComponent(query))
+        .success(function(data){
+          deferred.resolve(data)
+        });
+        return deferred.promise;
+    }
 
     // Public API here
-    return {
-      getData: function () {
-        return serviceData.GlossDiv.GlossList.GlossEntry.GlossTerm;
-      },
-      getTitle: function(){
-        return serviceData.title
-      }
-
-    };
+    return service;
   }
 }());

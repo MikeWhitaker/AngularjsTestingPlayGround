@@ -6,7 +6,7 @@ xdescribe('Controller: AboutCtrl', function () {
   beforeEach(module('angularJsUnitTestingApp'));
 
   var AboutCtrl,
-    scope;
+      scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
