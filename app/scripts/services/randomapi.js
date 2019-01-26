@@ -9,20 +9,20 @@
    * Factory in the angularJsUnitTestingApp.
    */
   angular
-    .module("angularJsUnitTestingApp")
+    .module("angularJsUnitTestingApp",[])
     .factory("randomApi", randomApiFactory);
 
-  randomApiFactory.$inject = ["$http", "$q"];
+  //randomApiFactory.$inject = ["$http", "$q"];
 
   function randomApiFactory($http, $q) {
     // Service logic
     var service = {};
-    var baseUrl = "http://omdbapi.com/?;";
+    var baseUrl = "http://omdbapi.com/?v=1&";
     service.search = function(query) {
       var deferred = $q.defer();
-      $http
-        .get(baseUrl + "s=" + encodeURIComponent(query))
+      $http.get(baseUrl + "s=" + encodeURIComponent(query))
         .success(function(data) {
+          dump(data);
           deferred.resolve(data);
         });
         return deferred.promise;
