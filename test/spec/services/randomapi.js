@@ -9,7 +9,13 @@ fdescribe("Service: randomApi", function() {
   }));
   // instantiate service
   
-  it("should return some data", function() {
+  fit("should return some data", function() {
+    var someObject = {
+      foo: "bar"
+    };
+    
+    dump(angular.mock.dump(someObject));
+
     expect(randomApi.getData("something")).toEqual(
       "Standard Generalized Markup Language"
     );

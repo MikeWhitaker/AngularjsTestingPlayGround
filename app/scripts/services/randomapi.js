@@ -12,41 +12,25 @@
 angular.module('angularJsUnitTestingApp')
   .service('randomApi', randomApiFactory);
   
-  randomApiFactory.$inject = [];
+  randomApiFactory.$inject = ['$http','$q'];
   
-  function randomApiFactory() {
+  function randomApiFactory($http,$q) {
     // Service logic
-    var serviceData = {
-      title: "example glossary",
-      GlossDiv: {
-        title: "S",
-        GlossList: {
-          GlossEntry: {
-            ID: "SGML",
-            SortAs: "SGML",
-            GlossTerm: "Standard Generalized Markup Language",
-            Acronym: "SGML",
-            Abbrev: "ISO 8879:1986",
-            GlossDef: {
-              para:
-                "A meta-markup language, used to create markup languages such as DocBook.",
-              GlossSeeAlso: ["GML", "XML"]
-            },
-            GlossSee: "markup"
-          }
-        }
-      }
-    };
+    var service = {};
+    var baseUrl = 'http://omdbapi.com/?;' 
+  service.search = function (query) {
+    http.get(baseUrl + 's=' + encodeURIComponent(query))
+      .success(function(data){
+      });
+  };
 
-    // Public API here
+  service.find = function(searchString){
     return {
-      getData: function () {
-        return serviceData.GlossDiv.GlossList.GlossEntry.GlossTerm;
-      },
-      getTitle: function(){
-        return serviceData.title
-      }
+      Title: "StarWars",
+      Year: '1977'
+    }
+  };
 
-    };
+  return service;
   }
 }());
