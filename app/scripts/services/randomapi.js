@@ -10,7 +10,7 @@
  * Factory in the angularJsUnitTestingApp.
  */
 angular.module('angularJsUnitTestingApp')
-  .service('randomApi', randomApiFactory);
+  .factory('randomApi', randomApiFactory);
   
   randomApiFactory.$inject = ['$http','$q'];
   
