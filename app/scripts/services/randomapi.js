@@ -1,40 +1,28 @@
-(function() {
-  "use strict";
+"use strict";
+angular.module('angularJsUnitTestingApp')
+	.service('randomApi', function($http, $q) {
+		var service = {};
+		var baseUrl = 'http://www.omdbapi.com/?v=1&';
 
-  /**
-   * @ngdoc service
-   * @name angularJsUnitTestingApp.randomApi
-   * @description
-   * # randomApi
-   * Factory in the angularJsUnitTestingApp.
-   */
-  angular
-    .module("angularJsUnitTestingApp",[])
-    .factory("randomApi", randomApiFactory);
+		function httpPromise (url) {
+			var deferred = $q.defer();
+			$http.get(url)
+				.success(function(data) {
+					deferred.resolve(data);
+				})
+				.error(function() {
+					deferred.reject();
+				});
+			return deferred.promise;
+		}
 
-  //randomApiFactory.$inject = ["$http", "$q"];
+		service.search = function(query) {
+			return httpPromise(baseUrl + 's=' + encodeURIComponent(query));
+		};
 
-  function randomApiFactory($http, $q) {
-    // Service logic
-    var service = {};
-    var baseUrl = "http://omdbapi.com/?v=1&";
-    service.search = function(query) {
-      var deferred = $q.defer();
-      $http.get(baseUrl + "s=" + encodeURIComponent(query))
-        .success(function(data) {
-          dump(data);
-          deferred.resolve(data);
-        });
-        return deferred.promise;
+		service.find = function(id) {
+			return httpPromise(baseUrl + 'i=' + id);
     };
-
-    service.find = function(searchString) {
-      return {
-        Title: "StarWars",
-        Year: "1977"
-      };
-    };
-
-    return service;
-  }
-})();
+    
+		return service;
+	});
