@@ -1,6 +1,6 @@
 "use strict";
 
-describe("Service: randomApi", function() {
+xdescribe("Service: randomApi", function() {
   // load the service's module
   
   var randomApi;

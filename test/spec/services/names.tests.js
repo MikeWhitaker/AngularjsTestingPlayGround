@@ -1,6 +1,6 @@
 "use strict";
 
-describe("Service: names", function() {
+xdescribe("Service: names", function() {
   var expectedData = "sometext";
   var responseData = "someOtherData";
 
@@ -47,7 +47,7 @@ describe("Service: names", function() {
     });
     $httpBackend.flush();
     // Assert
-    
+
     var actualRequestJson = angular.fromJson(actualResult);
 
 
