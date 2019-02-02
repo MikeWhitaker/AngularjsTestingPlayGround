@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * @ngdoc service
@@ -7,7 +7,35 @@
  * # core
  * Service in the angularJsUnitTestingApp.
  */
-angular.module('angularJsUnitTestingApp')
-  .service('core', function () {
-    // AngularJS will instantiate a singleton by calling "new" on this function
+angular
+  .module("angularJsUnitTestingApp", ["ngResource"])
+  .factory("core", function($resource) {
+    var token = 'teadybear';
+    
+    return $resource(
+      "popular/:movieId",
+      { movieId: "@Id" },
+      {
+        update: {
+          method: "PUT",
+          headers: { authToken: token }
+        },
+        get: {
+          method: "GET",
+          headers: { authToken: token }
+        },
+        query: {
+          method: "GET",
+          headers: { authToken: token }
+        },
+        save: {
+          method: "POST",
+          headers: { authToken: token }
+        },
+        remove: {
+          method: "DELETE",
+          headers: { authToken: token }
+        }
+      }
+    );
   });
